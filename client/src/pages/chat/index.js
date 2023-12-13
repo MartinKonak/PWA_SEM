@@ -1,12 +1,12 @@
 import styles from './styles.module.css';
 import RoomAndUsersColumn from './room-and-users';
-import SendMessage from './send-message';
 import MessagesReceived from './messages';
+import SendMessage from './send-message';
 
-const Chat = ({ username, room, socket }) => {
+const Chat = ({ username, room, socket }) => { //pokud message zareaguje na socket, pošle ho sem, aby se mohla zpráva zobrazit
   return (
     <div className={styles.chatContainer}>
-      <RoomAndUsersColumn socket={socket} username={username} room={room} />
+    <RoomAndUsersColumn socket={socket} username={username} room={room} />
 
       <div>
         <MessagesReceived socket={socket} />

@@ -1,18 +1,19 @@
-import './App.css';
-import { useState } from 'react';
-import Home from './pages/home';
+import './App.css'; //import stylů (to jak to vypadá)
+import { useState } from 'react'; // ukládání username a room
+import Home from './pages/home'; //import složky jednotlivých stránek
 import Chat from './pages/chat';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import io from 'socket.io-client';
+import io from 'socket.io-client'; // propojení se socket.io
 
-const socket = io.connect('http://localhost:4000');
+
+const socket = io.connect('http://localhost:4000'); //připojení na port, na kterém poběží server
 
 function App() {
-  const [username, setUsername] = useState('');
-  const [room, setRoom] = useState('');
+  const [username, setUsername] = useState(''); // uložení userName, které získá z homePage po přihlášení
+  const [room, setRoom] = useState(''); // uložení názvu místnosti, do které se přihlašuji
 
   return (
-    <Router>
+    <Router>  {/*router - nastavuje cesty ke konkrétnímu adresáři*/}
       <div className='App'>
         <Routes>
           <Route
@@ -27,7 +28,7 @@ function App() {
               />
             }
           />
-          {/* Add this */}
+          {/* cesta k chat page */}
           <Route
             path='/chat'
             element={<Chat username={username} room={room} socket={socket} />}

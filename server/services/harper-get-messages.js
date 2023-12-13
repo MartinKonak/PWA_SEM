@@ -1,3 +1,7 @@
+//zdrojak pro získávání zpráv z HarperDb
+//dá se najít přímo v examplech harperu - takže se db funkce programují o dost jednodušeji
+//s dobrým tutorialem to šlo zporovoznit
+
 let axios = require('axios');
 
 function harperGetMessages(room) {

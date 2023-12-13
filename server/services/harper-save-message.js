@@ -1,11 +1,16 @@
-let axios = require('axios');
+//zdrojak pro odesílání zpráv na HarperDb a uložení
+//dá se najít přímo v examplech harperu - takže se db funkce programují o dost jednodušeji
+//s dobrým tutorialem to šlo zporovoznit
+
+
+var axios = require('axios');
 
 function harperSaveMessage(message, username, room) {
   const dbUrl = process.env.HARPERDB_URL;
   const dbPw = process.env.HARPERDB_PW;
   if (!dbUrl || !dbPw) return null;
 
-  let data = JSON.stringify({
+  var data = JSON.stringify({
     operation: 'insert',
     schema: 'realtime_chat_app',
     table: 'messages',
@@ -18,7 +23,7 @@ function harperSaveMessage(message, username, room) {
     ],
   });
 
-  let config = {
+  var config = {
     method: 'post',
     url: dbUrl,
     headers: {

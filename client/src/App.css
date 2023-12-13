@@ -35,12 +35,31 @@ body {
   color: rgb(153, 217, 234);
   border: 1px solid rgb(153, 217, 234);
   background: rgb(63, 73, 204);
+  
+  transition-duration: 0.1s;
 }
+
+.btn-outline:hover {
+  color: rgb(153, 217, 234);
+  background: rgb(0, 24, 111);
+}
+
 .btn-primary {
   background: rgb(153, 217, 234);
   color: rgb(0, 24, 111);
+  transition-duration: 0.1s;
+}
+.btn-primary:hover {
+  background: rgb(0, 24, 111);
+  color: rgb(153, 217, 234);
 }
 .btn-secondary {
   background: rgb(0, 24, 111);
+  color: #fff;
+  transition-duration: 0.1s;
+}
+
+.btn-secondary:hover {
+  background: rgb(19, 94, 234);
   color: #fff;
 }

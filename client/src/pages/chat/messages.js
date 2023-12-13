@@ -1,12 +1,15 @@
+// komponenta pro jednotlivé zprávy
+
 import styles from './styles.module.css';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef  } from 'react';
 
 const Messages = ({ socket }) => {
   const [messagesRecieved, setMessagesReceived] = useState([]);
 
-  const messagesColumnRef = useRef(null);
+  const messagesColumnRef = useRef(null); //uložené zprávy
 
-  // Runs whenever a socket event is recieved from the server
+  // reaguje pokaždé když server pošle event odeslání zprávy (socket)
+  // namapuje zprávu z přijatých dat - rozdělí zprávu, odesílatele a čas
   useEffect(() => {
     socket.on('receive_message', (data) => {
       console.log(data);
@@ -20,10 +23,11 @@ const Messages = ({ socket }) => {
       ]);
     });
 
-    // Remove event listener on component unmount
+	// uzavře přístup k socketu po příjetí jedné zprávy
     return () => socket.off('receive_message');
   }, [socket]);
 
+  //reakce na načtení zpráv po přihlášení do roomky
   useEffect(() => {
     // Last 100 messages sent in the chat room (fetched from the db in backend)
     socket.on('last_100_messages', (last100Messages) => {
@@ -37,19 +41,21 @@ const Messages = ({ socket }) => {
     return () => socket.off('last_100_messages');
   }, [socket]);
 
+
   // Scroll to the most recent message
-  useEffect(() => {
+  useEffect(() => { //zobrazení od nejaktuálnější zprávy
     messagesColumnRef.current.scrollTop =
       messagesColumnRef.current.scrollHeight;
   }, [messagesRecieved]);
 
-  function sortMessagesByDate(messages) {
+  function sortMessagesByDate(messages) { //seřazení zpráv od poslední příchozí
     return messages.sort(
       (a, b) => parseInt(a.__createdtime__) - parseInt(b.__createdtime__)
     );
   }
 
   // dd/mm/yyyy, hh:mm:ss
+  // timestamp - romátování času do něčeho čitelného
   function formatDateFromTimestamp(timestamp) {
     const date = new Date(timestamp);
     return date.toLocaleString();

@@ -1,17 +1,20 @@
 Realtime chatapp
-- login with username into one chat room
+- login with username into one chat room and chat with other users
 
-Frontend: Javascript, React
-Backend: Node js
-Database: HarperDB
+Frontend:        Javascript, React
+Backend:         Node js
+Database:        HarperDB
+Communication:   Socket io
 
-Run local with docker
+Run local with docker:
 1.         git clone https://github.com/MartinKonak/PWA_SEM.git
 2.         cd PWA_SEM
 3.         docker-compose up
 
 
-On docker hub
+
+
+Run with docker hub images:
 -         docker pull martinkonak/pwa_sem-frontend
 -         docker pull martinkonak/pwa_sem-backend
 - edit compose.yml:

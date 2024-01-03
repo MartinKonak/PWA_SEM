@@ -6,14 +6,14 @@ Backend: Node js
 Database: HarperDB
 
 Run local with docker
-1. git clone https://github.com/MartinKonak/PWA_SEM.git
-2. cd PWA_SEM
-3. docker-compose up
+1.         git clone https://github.com/MartinKonak/PWA_SEM.git
+2.         cd PWA_SEM
+3.         docker-compose up
 
 
 On docker hub
-- docker pull martinkonak/pwa_sem-frontend
-- docker pull martinkonak/pwa_sem-backend
+-         docker pull martinkonak/pwa_sem-frontend
+-         docker pull martinkonak/pwa_sem-backend
 - edit compose.yml:
 
         version: '3'
@@ -32,4 +32,4 @@ On docker hub
 
 - then in work directory:
   - copy ./server/.env
-  -          docker-compose up -d
+  -     docker-compose up -d

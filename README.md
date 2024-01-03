@@ -1,3 +1,10 @@
+Realtime chatapp
+- login with username into one chat room
+
+Frontend: Javascript, React
+Backend: Node js
+Database: HarperDB
+
 Run local with docker
 1. git clone https://github.com/MartinKonak/PWA_SEM.git
 2. cd PWA_SEM
@@ -20,3 +27,5 @@ On docker hub
               image: martinkonak/pwa_sem-backend
               ports:
                 - "3000:3000"  # Change this if your backend listens on a different port
+
+- then in work directory: docker-compose up -d

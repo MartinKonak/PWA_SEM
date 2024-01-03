@@ -8,7 +8,11 @@ var axios = require('axios');
 function harperSaveMessage(message, username, room) {
   const dbUrl = process.env.HARPERDB_URL;
   const dbPw = process.env.HARPERDB_PW;
-  if (!dbUrl || !dbPw) return null;
+  //if (!dbUrl || !dbPw) return null;
+
+  if (!dbUrl || !dbPw) {
+    return Promise.reject(new Error('HarperDB URL or password not provided'));
+  }
 
   var data = JSON.stringify({
     operation: 'insert',

@@ -19,7 +19,8 @@ const server = http.createServer(app); //vytvoření http instance serveru - pak
 // vytvoří io pro komunikaci s portem frontendu, cors povoluje připojení
 const io = new Server(server, {
     cors: {
-      origin: 'http://localhost:3000',
+      //origin: 'http://localhost:3000',
+      origin: ['http://localhost:3000',  'http://147.230.152.65:3000'],
       methods: ['GET', 'POST'],
     },
   });
@@ -35,7 +36,8 @@ let allUsers = []; // list přihlášených uživatelů - výpis zúčastněnýc
 //čeká na socket klienta až se připojí (popsáno v komentářích)
 // realtime komunikace - tohle je ono!
 io.on('connection', (socket) => { //pokud se frontend pokusí připojit, tenhle příkaz to zachytí
-    console.log(`User connected ${socket.id}`); //má id konkrétního socketu = "okno kde jsem přihlášenej"
+    console.log(`User connected ${socket.id}`); //má id konkrétního socketu = "okno kde jsem přihlášenej"    
+
 
     socket.on('join_attempt', (data) => {//při pokusu o připojení vrátí userlist pro porovnání duplikátů
         const { username, room } = data;
@@ -74,21 +76,50 @@ io.on('connection', (socket) => { //pokud se frontend pokusí připojit, tenhle 
         
         // Get last 100 messages sent in the chat room
         //pošle posledních 100 zpráv na socket aktuálního usera hned popřihlášení aby si mohl zobrazit chat
-        harperGetMessages(room)
-        .then((last100Messages) => {
+        /*harperGetMessages(room)
+        .then(last100Messages) => {
           // console.log('latest messages', last100Messages);
           socket.emit('last_100_messages', last100Messages);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err));*/
+        harperGetMessages(room)
+        .then((last100Messages) => {
+          if (last100Messages) {
+            // Process the last 100 messages
+            // console.log('latest messages', last100Messages);
+            socket.emit('last_100_messages', last100Messages);
+          } else {
+            throw new Error('No messages found or null value returned');
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          // Handle errors here
+        });
         
       });
 
-      socket.on('send_message', (data) => { //socket pro odeslání zprávy do roomky - uvidí ji všichni
+      /*socket.on('send_message', (data) => { //socket pro odeslání zprávy do roomky - uvidí ji všichni
         const { message, username, room, __createdtime__ } = data;
         io.in(room).emit('receive_message', data); // Send to all users in room, including sender
         harperSaveMessage(message, username, room, __createdtime__) // Save message in db
           .then((response) => console.log(response))
           .catch((err) => console.log(err));
+      });*/
+      socket.on('send_message', async (data) => {
+        try {
+          const { message, username, room, __createdtime__ } = data;
+          
+          // Emit the message to all users in the room
+          io.in(room).emit('receive_message', data);
+      
+          // Save the message in the database
+          const response = await harperSaveMessage(message, username, room, __createdtime__);
+          console.log(response); // Log the response from saving the message
+        } catch (error) {
+          console.error('Error occurred while sending or saving message:', error);
+          // Handle the error appropriately (e.g., emit an error event to the client)
+        }
       });
 
 
@@ -134,4 +165,4 @@ app.get('/', (req, res) => {
   });
 //-------------------------------------------------------
 
-server.listen(4000, () => 'Server is running on port 4000');
+server.listen(4000, '0.0.0.0', () => 'Server is running on port 4000');

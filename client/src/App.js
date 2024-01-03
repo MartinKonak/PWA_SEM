@@ -7,6 +7,7 @@ import io from 'socket.io-client'; // propojení se socket.io
 
 
 const socket = io.connect('http://localhost:4000'); //připojení na port, na kterém poběží server
+//const socket = io.connect('http://147.230.152.65:4000');
 
 function App() {
   const [username, setUsername] = useState(''); // uložení userName, které získá z homePage po přihlášení

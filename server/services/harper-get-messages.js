@@ -4,7 +4,7 @@
 
 let axios = require('axios');
 
-function harperGetMessages(room) {
+async function harperGetMessages(room) {
   const dbUrl = process.env.HARPERDB_URL;
   const dbPw = process.env.HARPERDB_PW;
   if (!dbUrl || !dbPw) return null;
@@ -33,6 +33,13 @@ function harperGetMessages(room) {
         reject(error);
       });
   });
+
+  /*try {
+    const response = await axios(config);
+    return JSON.stringify(response.data);
+  } catch (error) {
+    throw new Error(`Error fetching messages: ${error.message}`);
+  }*/
 }
 
 module.exports = harperGetMessages;

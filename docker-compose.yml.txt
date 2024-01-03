@@ -10,4 +10,6 @@ services:
     build: ./backend
     ports:
       - "4000:4000"
+    env_file:
+      - ./server/.env
     # Add any other configurations or environment variables here

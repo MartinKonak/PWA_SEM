@@ -13,6 +13,8 @@ services:
       context: .
     environment:
       NODE_ENV: production
+      #- HARPERDB_URL=http://your-harperdb-url
+      #- HARPERDB_PW=your-harperdb-password
     ports:
       - 4000:4000
 

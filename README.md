@@ -21,11 +21,13 @@ On docker hub
             frontend:
               image: martinkonak/pwa_sem-frontend
               ports:
-                - "80:80"  # Change this if your frontend listens on a different port
+                - "3000:3000"  # Change this if your frontend listens on a different port
 
             backend:
               image: martinkonak/pwa_sem-backend
               ports:
-                - "3000:3000"  # Change this if your backend listens on a different port
+                - "4000:4000"  # Change this if your backend listens on a different port
+              env_file:
+                - ./.env
 
 - then in work directory: docker-compose up -d

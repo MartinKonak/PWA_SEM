@@ -14,7 +14,7 @@ Run local with docker
 On docker hub
 - docker pull martinkonak/pwa_sem-frontend
 - docker pull martinkonak/pwa_sem-backend
-- edit docker-compose.yml:
+- edit compose.yml:
 
         version: '3'
             services:
@@ -30,4 +30,6 @@ On docker hub
               env_file:
                 - ./.env
 
-- then in work directory: docker-compose up -d
+- then in work directory:
+  - copy ./server/.env
+  -          docker-compose up -d

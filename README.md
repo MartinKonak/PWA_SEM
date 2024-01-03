@@ -12,11 +12,11 @@ On docker hub
         version: '3'
             services:
             frontend:
-              image: your-docker-username/frontend-image-name
+              image: martinkonak/pwa_sem-frontend
               ports:
                 - "80:80"  # Change this if your frontend listens on a different port
 
             backend:
-              image: your-docker-username/backend-image-name
+              image: martinkonak/pwa_sem-backend
               ports:
                 - "3000:3000"  # Change this if your backend listens on a different port
